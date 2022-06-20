@@ -16,7 +16,7 @@ Each folder is named with the technical requirements (React.js | Node.js)
 ## ✨ Tecnologias
 
 # Front-end
-- *** At developer ***
+- *** At development ***
 
 # Back-end
 - Express
@@ -61,7 +61,7 @@ Each folder is named with the technical requirements (React.js | Node.js)
 ## Running project
 
 # Front-end
-*** At developer ***
+*** At development ***
 
 # Back-end
 To the step below work is necessary that all developer environment be correctly configured.
