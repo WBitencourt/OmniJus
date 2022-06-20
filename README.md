@@ -2,7 +2,7 @@
 
 This repository is intended to show my habilites and definition with a test proposed by OmniJus. 
 <br/>
-Each folder is named with the technical requirements
+Each folder is named with the technical requirements (React.js | Node.js)
 <br/>
 <br/>
 ## 💻 Project
