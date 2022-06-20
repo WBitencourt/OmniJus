@@ -88,7 +88,7 @@ STORAGE_TYPE=<choose 'local' to upload/delete files at server or 's3' to upload/
 
 Utilize o **yarn** ou o **npm install** para instalar as dependências do projeto.
 
-Passo 1:
+Step 1:
 ```cl
 npm install
 ```
@@ -98,12 +98,12 @@ ou
 yarn install
 ```
 
-Passo 2:
+Step 2:
 ```cl
 npx prisma migrate dev 
 ```
 
-Passo 3:
+Step 3:
 ```cl
 npm run dev
 ```
