@@ -62,8 +62,6 @@ routes.delete('/files/:id', async (req, res) => {
 
   const deleteFileUseCase = new DeleteFileUseCase(fileRepository);
 
-  console.log(file[0].key)
-
   await deleteFileUseCase.execute({id, key});
 
   return res.status(200).send();
