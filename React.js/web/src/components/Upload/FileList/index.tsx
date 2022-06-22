@@ -14,7 +14,12 @@ interface UploadedFiles {
   url: string,
 }
 
-export default function FileList({files}: any) {
+interface FileList {
+  files: UploadedFiles[],
+  onDelete: (id: string) => void,
+}
+
+export default function FileList({files, onDelete}: FileList) {
   return (
     <Container>
       {files.map((uploadedFile: UploadedFiles) => (
@@ -25,7 +30,7 @@ export default function FileList({files}: any) {
             <strong>{uploadedFile.name}</strong>
             <span>{uploadedFile.readableSize}
               { !!uploadedFile.url && 
-                <button onClick={() => {}}>Excluir</button>
+                <button onClick={() => {onDelete(uploadedFile.id)}}>Excluir</button>
               }
             </span>
           </div>

@@ -18,9 +18,43 @@ interface UploadedFiles {
   url: string,
 }
 
+export interface ResponseGetFiles {
+  id: number,
+  createdAt: Date,
+  name: string,
+  size: number,
+  key: string,
+  url: string,
+  userID: number
+}
+
 export function Upload() {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFiles[]>([]);
   const [pendingFilesUpload, setPendingFilesUpload] = useState<UploadedFiles[]>([]);
+
+  useEffect(() => {
+    async function GetFiles() {
+      const response = await api.get('files');
+
+      const files: UploadedFiles[] = response.data.map((file: ResponseGetFiles): UploadedFiles => ({
+        id: file.id.toString(),
+        name: file.name,
+        readableSize: fileSize(file.size),
+        preview: file.url,
+        uploaded: true,
+        url: file.url,
+      } as UploadedFiles) )
+
+      setUploadedFiles(files);
+    }
+
+    GetFiles();
+
+    // return () => {
+    //   //Remove Object URL to cache
+    //   uploadedFiles.forEach(file => URL.revokeObjectURL(file.preview))
+    // }
+  }, [])
 
   function handleUpload(files: any) {
     const File: UploadedFiles[] = files.map((file: any) => ({
@@ -37,9 +71,7 @@ export function Upload() {
     console.log(File)
 
     setPendingFilesUpload(File);
-    setUploadedFiles((prevState) => [ ...prevState, ...File ]);
-
-    //uploadedFiles.forEach(processUpload)
+    setUploadedFiles((prevState) => [...prevState, ...File]);
   }
 
   useEffect(() => {
@@ -68,18 +100,38 @@ export function Upload() {
 
         updateFile(id, {progress})
       }
-    }).then(() => {
-
+    }).then((response) => {
+      updateFile(id, {
+        uploaded: true,
+        id: response.data.id,
+        url: response.data.url
+      })
     }).catch(() => {
-
+      updateFile(id, {
+        error: true,
+      })
     })
   } 
+
+  async function handleDelete(id: string) {
+    try {
+      await api.delete(`files/${id}`)
+
+      setUploadedFiles((prevState) => prevState.filter(file => file.id != id));
+    } catch(error: any) {
+
+      if (error.response.status != 200 )
+      {
+        alert("Falha ao excluir o arquivo, verifique sua conexão com a internet.");
+      }
+    }
+  }
 
   return (
     <Container>
       <File onUpload={(files) => handleUpload(files)} />
       { !!uploadedFiles.length && (
-        <FileList files={uploadedFiles} />
+        <FileList files={uploadedFiles} onDelete={handleDelete} />
       )}
       {/* <p style={{color: 'red'}}>{JSON.stringify(uploadedFiles)}</p> */}
     </Container>

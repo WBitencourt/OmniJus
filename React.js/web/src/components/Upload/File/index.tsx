@@ -11,7 +11,7 @@ interface FileProps {
 
 const filesAllow: Accept = {
   'image/*': ['.png', '.jpg', 'jpeg'],
-  'application/*': ['.pdf'],
+  'application/pdf': ['.pdf'],
 };
 
 function renderDragMessage(isDragActive: boolean, isDragReject: boolean) {
