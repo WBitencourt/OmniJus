@@ -30,7 +30,7 @@ export default function FileList({files, onDelete}: FileList) {
             <strong>{uploadedFile.name}</strong>
             <span>{uploadedFile.readableSize}
               { !!uploadedFile.url && 
-                <button onClick={() => {onDelete(uploadedFile.id)}}>Excluir</button>
+                <button onClick={() => {onDelete(uploadedFile.id)}}>Delete</button>
               }
             </span>
           </div>

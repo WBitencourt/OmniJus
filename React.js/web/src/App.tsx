@@ -1,12 +1,13 @@
 import GlobalStyle from './styles/global';
 import Main from './pages/Main';
+import { AuthProvider } from './contexts/auth';
 
 export function App() {
   return (
-  <>
-    <GlobalStyle />
-    <Main />
-  </>
+    <AuthProvider>
+      <GlobalStyle />
+      <Main />
+    </AuthProvider>
   )
 }
 

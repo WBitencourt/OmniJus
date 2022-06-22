@@ -122,7 +122,7 @@ export function Upload() {
 
       if (error.response.status != 200 )
       {
-        alert("Falha ao excluir o arquivo, verifique sua conexão com a internet.");
+        alert("Fail to delete file, check your connection with the internet.");
       }
     }
   }
