@@ -28,13 +28,15 @@ export interface ResponseGetFiles {
   userID: number
 }
 
+const userID = 20;
+
 export function Upload() {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFiles[]>([]);
   const [pendingFilesUpload, setPendingFilesUpload] = useState<UploadedFiles[]>([]);
 
   useEffect(() => {
     async function GetFiles() {
-      const response = await api.get('files');
+      const response = await api.get(`files/user/${userID}`);
 
       const files: UploadedFiles[] = response.data.map((file: ResponseGetFiles): UploadedFiles => ({
         id: file.id.toString(),
@@ -93,6 +95,7 @@ export function Upload() {
     const data = new FormData();
 
     data.append('file', file, name);
+    data.append('userID', userID.toString());
 
     api.post('files', data, {
       onUploadProgress: event => {

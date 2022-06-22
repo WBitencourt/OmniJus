@@ -34,7 +34,7 @@ export const AuthProvider = ({children}: any) => {
       const storageToken = await localStorage.getItem('@RNAuth:token');
 
       //Just to test loading feature
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
       if (storageUser && storageToken) {
         api.defaults.headers.common['Authorization'] = `Bearer ${storageToken}`;
