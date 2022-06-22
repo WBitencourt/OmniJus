@@ -8,7 +8,7 @@ const Routes = () => {
   if (loading) {
     return (
       <Container>
-        <Header>Carregando...</Header>
+        <Header>Loading...</Header>
       </Container>
     );
   }
