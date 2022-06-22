@@ -20,9 +20,9 @@ routes.get('/files', async (req, res) => {
 
   const getFileUseCase = new GetFileUseCase(fileRepository);
 
-  const files = await getFileUseCase.execute();
+  const data = await getFileUseCase.execute();
 
-  return res.status(201).send({data: files});
+  return res.status(201).send(data);
 });
 
 routes.post('/files', fileAdapter.upload(), async (req: Request, res: Response) => {
@@ -37,7 +37,7 @@ routes.post('/files', fileAdapter.upload(), async (req: Request, res: Response) 
     nodemailerMailAdapter
   );
 
-  const file = await submitFileUseCase.execute({
+  const data = await submitFileUseCase.execute({
     name,
     size,  
     key, 
@@ -45,7 +45,7 @@ routes.post('/files', fileAdapter.upload(), async (req: Request, res: Response) 
     userID: 1,
   })
 
-  return res.status(201).send({data: file});
+  return res.status(201).send(data);
 });
 
 routes.delete('/files/:id', async (req, res) => {

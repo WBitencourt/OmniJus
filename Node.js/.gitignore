@@ -1,6 +1,6 @@
 node_modules
 # Keep environment variables out of version control
 .env
-tmp/uploads/*
-!tmp/uploads/.gitkeep
+temp/uploads/*
+!temp/uploads/.gitkeep
 
