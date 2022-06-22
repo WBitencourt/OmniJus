@@ -15,18 +15,17 @@ interface MulterRequest extends Request {
   file: any;
 }
 
-routes.get('/files', async (req, res) => {
+routes.get('/files/user/:id', async (req, res) => {
   const fileRepository = new FileRepository();
 
   const getFileUseCase = new GetFileUseCase(fileRepository);
 
-  const data = await getFileUseCase.execute();
+  const data = await getFileUseCase.readWhere({userID: parseInt(req.params.id)});
 
   return res.status(201).send(data);
 });
 
 routes.post('/files', fileAdapter.upload(), async (req: Request, res: Response) => {
-  console.log("********************userID " + req.body.userID);
   const {originalname: name, size, key, location: url = ''}  = (req as MulterRequest).file;
 
   const fileRepository = new FileRepository();
@@ -48,7 +47,7 @@ routes.post('/files', fileAdapter.upload(), async (req: Request, res: Response) 
     key,
     url,
     userID: parseInt(req.body.userID),
-    emailRead: false,
+    emailSend: false,
   })
 
   return res.status(201).send(data);
@@ -78,9 +77,9 @@ routes.get('/', async (req, res) => {
 
   // const getFileUseCase = new GetFileUseCase(fileRepository);
 
-  // const data = await getFileUseCase.readWhere({userID: 1});
+  // const data = await getFileUseCase.readWhere({emailSend: true});
 
   // console.log(data);
 
-  return res.status(200).send('HTTP server running!');
+  return res.status(200).send();
 });

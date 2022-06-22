@@ -8,7 +8,7 @@ interface GetFilesUseCaseRequest {
   key?: string | undefined,
   url?: string | undefined,
   userID?: number | undefined,
-  emailRead?: boolean | undefined,
+  emailSend?: boolean | undefined,
 }
 
 export class GetFileUseCase {
@@ -23,9 +23,17 @@ export class GetFileUseCase {
 
   async readWhere(data: GetFilesUseCaseRequest) {
 
+    console.log(data);
+
     const file = await this.filesRepository.readWhere({
-      id: data.id, 
-      userID: data.userID
+      id: data?.id, 
+      createdAt: data?.createdAt,
+      name: data?.name,
+      size: data?.size,
+      key: data?.key,
+      url: data?.url,
+      userID: data?.userID,
+      emailSend: data?.emailSend,
     });
 
     return file;

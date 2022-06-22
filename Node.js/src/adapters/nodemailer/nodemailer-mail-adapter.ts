@@ -12,9 +12,6 @@ const transport = nodemailer.createTransport({
 
 export class NodemailerMailAdapter implements IMailAdapter {
   async sendMail({subject, body, attachments}: ISendMailData) {
-
-    //await new Promise(resolve => setTimeout(resolve, 10000));
-
     await transport.sendMail({
       from: 'Equipe Omnijus <suporte@suporte.com>',
       to: 'Wendell Bitencourt <wendell.gbitencourt@gmail.com>',

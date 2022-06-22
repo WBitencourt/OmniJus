@@ -7,7 +7,7 @@ interface SubmitFilesUseCaseRequest {
   key: string;
   url: string;
   userID: number;
-  emailRead: boolean;
+  emailSend: boolean;
 }
 
 interface Attachments {
@@ -23,7 +23,7 @@ export class SubmitFileUseCase {
   ) {}
 
   async execute(request: SubmitFilesUseCaseRequest) {
-    const { name, size, key, url, userID, emailRead } = request;
+    const { name, size, key, url, userID, emailSend } = request;
 
     if(!name) {
       throw new Error('Name is required.')
@@ -47,10 +47,15 @@ export class SubmitFileUseCase {
       key,
       url: url ? url : `${process.env.APP_URL}/files/${key}`,
       userID,
-      emailRead
+      emailSend
     })
 
-    const fileNotSendToUser= await this.filesRepository.readWhere({userID, emailRead: false});
+    const fileNotSendToUser= await this.filesRepository.readWhere({userID, emailSend: false});
+
+    if(!fileNotSendToUser) {
+      
+      return file;
+    }
 
     const attachments: Attachments[] = fileNotSendToUser.map((file): Attachments => ({
       id: file.id,
@@ -69,7 +74,7 @@ export class SubmitFileUseCase {
       attachments
     })
 
-    await this.filesRepository.updateWhere({emailRead: true}, {userID});
+    await this.filesRepository.updateWhere({emailSend: true}, {userID});
 
     return file;
   }

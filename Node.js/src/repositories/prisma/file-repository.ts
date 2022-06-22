@@ -4,7 +4,7 @@ export interface IFileCreateData {
   key: string;
   url: string;
   userID: number;
-  emailRead: boolean;
+  emailSend: boolean;
 }
 
 export interface IFileReturnDataCreate {
@@ -15,7 +15,7 @@ export interface IFileReturnDataCreate {
   key: String,
   url: String,
   userID: number,
-  emailRead: boolean,
+  emailSend: boolean,
 }
 
 export interface IFileDeleteData {
@@ -30,14 +30,14 @@ export interface IFileWhereConditions {
   key?: string | undefined,
   url?: string | undefined,
   userID?: number | undefined,
-  emailRead?: boolean | undefined,
+  emailSend?: boolean | undefined,
 }
 
 export interface IFileUpdateConditions {
   name?: string | undefined,
   key?: string | undefined,
   url?: string | undefined,
-  emailRead?: boolean | undefined,
+  emailSend?: boolean | undefined,
 }
 
 export interface IFileRepository {

@@ -11,7 +11,7 @@ import
 from "./file-repository";
 
 export class FileRepository implements IFileRepository {
-  async create({name, size, key, url, userID, emailRead}: IFileCreateData) {  
+  async create({name, size, key, url, userID, emailSend}: IFileCreateData) {  
     const file = await prisma.files.create({
       data: {
         name,
@@ -19,7 +19,7 @@ export class FileRepository implements IFileRepository {
         key,
         url,
         userID,
-        emailRead,
+        emailSend,
       }
     });
 
@@ -45,6 +45,7 @@ export class FileRepository implements IFileRepository {
         key: where?.key,
         url: where?.url,
         userID: where?.userID,
+        emailSend: where?.emailSend,
       }
     });
 
@@ -69,7 +70,7 @@ export class FileRepository implements IFileRepository {
         name: data?.name,
         key: data?.key,
         url: data?.url,
-        emailRead: data?.emailRead
+        emailSend: data?.emailSend
       },
     });
   }
