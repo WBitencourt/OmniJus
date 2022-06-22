@@ -2,43 +2,63 @@ import { Container, FileInfo, Preview } from "./styles";
 import { CircularProgressbar } from 'react-circular-progressbar';
 import {MdCheckCircle, MdError, MdLink} from 'react-icons/md';
 
-export default function FileList() {
+interface UploadedFiles {
+  file: any,
+  id: string,
+  name: string,
+  readableSize: string,
+  preview: string,
+  progress: number,
+  uploaded: boolean,
+  error: boolean,
+  url: string,
+}
+
+export default function FileList({files}: any) {
   return (
     <Container>
-      <li>
+      {files.map((uploadedFile: UploadedFiles) => (
+        <li key={uploadedFile.id}>
         <FileInfo>
-          <Preview src="http://localhost:3333/files/559c49142833293e3c15cbc9e6d6a421-spiderman.jpg" />
+          <Preview src={uploadedFile.preview} />
           <div>
-            <strong>profile.png</strong>
-            <span>64kb 
-              <button onClick={() => {}}>Excluir</button>
+            <strong>{uploadedFile.name}</strong>
+            <span>{uploadedFile.readableSize}
+              { !!uploadedFile.url && 
+                <button onClick={() => {}}>Excluir</button>
+              }
             </span>
           </div>
         </FileInfo>
 
         <div>
-          <CircularProgressbar 
-            styles={{
-              root: {width: 24},
-              path: { stroke: '#ff9c31'}
-            }}
-            strokeWidth={10}
-            value={60}
-          />
+          {!uploadedFile.uploaded && !uploadedFile.error && (
+              <CircularProgressbar 
+              styles={{
+                root: {width: 24},
+                path: { stroke: '#ff9c31'}
+              }}
+              strokeWidth={10}
+              value={uploadedFile.progress}
+            />
+          )}
 
-          <a
-            href="http://localhost:3333/files/559c49142833293e3c15cbc9e6d6a421-spiderman.jpg"
-            target="_blank"
-          >
-            <MdLink style={{marginRight: 8}} size={24} color="#222" />
-          </a>
+          {uploadedFile.url && (
+            <a
+              href={uploadedFile.url}
+              target="_blank"
+            >
+              <MdLink style={{marginRight: 8}} size={24} color="#222" />
+            </a>
+          )}
 
-          <MdCheckCircle size={24} color="#78e5d5" />
+          { uploadedFile.uploaded && <MdCheckCircle size={24} color="#78e5d5" />}
 
-          <MdError size={24} color="#e57878" />
+          { uploadedFile.error && <MdError size={24} color="#e57878" /> }
 
         </div>
       </li>
+      ))}
     </Container>
   );
 }
