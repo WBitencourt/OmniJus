@@ -1,7 +1,14 @@
 import { IFileRepository } from "../repositories/prisma/file-repository";
 
 interface GetFilesUseCaseRequest {
-  id: string,
+  id?: string | undefined,
+  createdAt?: Date | undefined,
+  name?: string | undefined,
+  size?: number | undefined,
+  key?: string | undefined,
+  url?: string | undefined,
+  userID?: number | undefined,
+  emailRead?: boolean | undefined,
 }
 
 export class GetFileUseCase {
@@ -14,9 +21,12 @@ export class GetFileUseCase {
     return file;
   }
 
-  async getID({id}: GetFilesUseCaseRequest) {
+  async readWhere(data: GetFilesUseCaseRequest) {
 
-    const file = await this.filesRepository.readWhere({id});
+    const file = await this.filesRepository.readWhere({
+      id: data.id, 
+      userID: data.userID
+    });
 
     return file;
   }

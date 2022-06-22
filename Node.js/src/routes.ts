@@ -26,7 +26,7 @@ routes.get('/files', async (req, res) => {
 });
 
 routes.post('/files', fileAdapter.upload(), async (req: Request, res: Response) => {
-  console.log(req.file)
+  console.log("********************userID " + req.body.userID);
   const {originalname: name, size, key, location: url = ''}  = (req as MulterRequest).file;
 
   const fileRepository = new FileRepository();
@@ -37,12 +37,18 @@ routes.post('/files', fileAdapter.upload(), async (req: Request, res: Response) 
     nodemailerMailAdapter
   );
 
+  console.log({
+    filename: name,
+    path: url
+  })
+
   const data = await submitFileUseCase.execute({
     name,
-    size,  
-    key, 
+    size,
+    key,
     url,
-    userID: 1,
+    userID: parseInt(req.body.userID),
+    emailRead: false,
   })
 
   return res.status(201).send(data);
@@ -55,7 +61,7 @@ routes.delete('/files/:id', async (req, res) => {
 
   const getFileUseCase = new GetFileUseCase(fileRepository);
 
-  const file = await getFileUseCase.getID({id: reqID});
+  const file = await getFileUseCase.readWhere({id: reqID});
 
   const id = file[0].id.toString();
   const key = file[0].key.toString();
@@ -67,6 +73,14 @@ routes.delete('/files/:id', async (req, res) => {
   return res.status(200).send();
 });
 
-routes.get('/', (req, res) => {
+routes.get('/', async (req, res) => {
+  // const fileRepository = new FileRepository();
+
+  // const getFileUseCase = new GetFileUseCase(fileRepository);
+
+  // const data = await getFileUseCase.readWhere({userID: 1});
+
+  // console.log(data);
+
   return res.status(200).send('HTTP server running!');
 });

@@ -18,6 +18,7 @@ model Files {
   key       String   @db.VarChar(255)
   url       String   @db.VarChar(255)
   userID    Int
+  emailRead Boolean  @default(false)
 
   @@map("files")
 }
