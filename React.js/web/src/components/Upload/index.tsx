@@ -20,11 +20,9 @@ interface UploadedFiles {
 
 export function Upload() {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFiles[]>([]);
+  const [pendingFilesUpload, setPendingFilesUpload] = useState<UploadedFiles[]>([]);
 
   function handleUpload(files: any) {
-
-    console.log(files)
-
     const File: UploadedFiles[] = files.map((file: any) => ({
       file,
       id: uid(),
@@ -38,9 +36,25 @@ export function Upload() {
     }));
     console.log(File)
 
+    setPendingFilesUpload(File);
     setUploadedFiles((prevState) => [ ...prevState, ...File ]);
 
-    uploadedFiles.forEach(processUpload)
+    //uploadedFiles.forEach(processUpload)
+  }
+
+  useEffect(() => {
+    pendingFilesUpload.forEach(processUpload);
+  }, [pendingFilesUpload]);
+
+
+  function updateFile(id: string, data: any) {
+    setUploadedFiles((prevState) => {
+      const fileUpdated = prevState.map((file) => {
+        return file.id === id ? {...file, ...data} : file
+      })
+
+      return fileUpdated;
+    });
   }
 
   function processUpload({id, name, file}: UploadedFiles) {
@@ -52,15 +66,12 @@ export function Upload() {
       onUploadProgress: event => {
         const progress = parseInt(Math.round((event.loaded * 100) / event.total).toString())
 
-        setUploadedFiles((prevState) => {
-          const fileUpdated = prevState.map((file) => {
-            return file.id === id ? {...file, progress} : file
-          })
-
-          return fileUpdated;
-        });
-
+        updateFile(id, {progress})
       }
+    }).then(() => {
+
+    }).catch(() => {
+
     })
   } 
 
