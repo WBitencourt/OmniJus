@@ -38,7 +38,7 @@ export class SubmitFileUseCase {
       name,
       size,
       key,
-      url: url ? url : `${process.env.APP_URL}/files/${key}`,
+      url: url ? url : `${process.env.RAILWAY_STATIC_URL}/files/${key}`,
       userID,
       emailSend
     })

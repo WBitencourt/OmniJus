@@ -6,7 +6,7 @@ declare namespace NodeJS {
   }
 
   export interface ProcessEnv { 
-    APP_URL: string;
+    RAILWAY_STATIC_URL: string;
     STORAGE_TYPE: keyof StorageType; 
     BUCKET_NAME: string;
     STORAGE_TYPE: string;
