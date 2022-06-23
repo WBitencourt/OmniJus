@@ -13,6 +13,14 @@ Each folder is named with the technical requirements (React.js | Node.js)
 - Files must be saved to some cloud service;
 - The user should receive an email with the files attached.
 
+## 🔖 Layout
+
+- The front-end can be access by [this link](https://omni-jus.vercel.app/). 
+<br />
+- The back-end can be access by [this link](https://omnijus-production.up.railway.app/). 
+<br />
+<br />
+
 ## ✨ Tecnologias
 
 # Front-end
