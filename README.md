@@ -11,7 +11,7 @@ Each folder is named with the technical requirements (React.js | Node.js)
 - The user can only upload .pdf files; .png and .jpg/jpeg;
 - It must be validated if the files are corrupted;
 - Files must be saved to some cloud service;
-- The user should receive an email with the files attached.
+- The user should receive an email with the files attached;
 
 ## 🔖 Layout
 
