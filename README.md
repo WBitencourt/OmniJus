@@ -118,6 +118,8 @@ Then, fill the values ​​inside the ".env" file at the project root.
 ```cl
 DATABASE_URL='postgresql://<username>:<password>@localhost:<your port, i'm using 5433>/<mydb>?schema=<myschema>'
 
+RAILWAY_STATIC_URL=<your server address>
+
 # Keys of IAM user:
 # Access key ID 
 AWS_ACCESS_KEY_ID=<Put your access key ID here>
