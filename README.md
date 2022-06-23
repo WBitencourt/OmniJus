@@ -41,7 +41,6 @@ Each folder is named with the technical requirements (React.js | Node.js)
 - Jest
 - PostgreSQL
 - Migrations
-- SWC
 - Cors
 - Morgan
 - Multer
