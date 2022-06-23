@@ -43,6 +43,7 @@ Each folder is named with the technical requirements (React.js | Node.js)
 - Multer S3
 - AWS SDK
 - Nodemailer
+- Node-Schedule
 - Dotenv
 
 ## :hammer_and_wrench: Features 
@@ -62,8 +63,8 @@ Each folder is named with the technical requirements (React.js | Node.js)
 # Back-end
 -   [ ] The user can only upload .pdf files; .png and .jpg/jpeg;
 -   [ ] It must be validated if the files are corrupted;
--   [ ] Files must be saved to some cloud service(AWS S3);
--   [ ] The user should receive an email with the files attached;
+-   [ ] Files will be save to local or AWS S3;
+-   [ ] The user should receive an email with the files attached by every 5min;
 -   [ ] GET check if server is running (www.yourUrlServer/);
 -   [ ] GET all files (www.yourUrlServer/files/);
 -   [ ] POST file sended (www.yourUrlServer/files/) Body: {key: 'file', value: 'your_file.png'};
@@ -126,6 +127,8 @@ AWS_DEFAULT_REGION=<region example: us-east-1>
 BUCKET_NAME=<put your bucket name here>
 
 STORAGE_TYPE=<choose 'local' to upload/delete files at server or 's3' to upload/delete files in the s3 AWS>
+
+TIME_SEND_EMAIL=<your time at format "node-schedule", EX: '*/5 * * * *', its run in interval of 5 minutes">
 ```
 
 Use **yarn** or **npm install** to install the dependencies of the project.

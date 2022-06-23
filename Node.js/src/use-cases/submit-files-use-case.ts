@@ -10,16 +10,9 @@ interface SubmitFilesUseCaseRequest {
   emailSend: boolean;
 }
 
-interface Attachments {
-  id: number;
-  filename: String;
-  path: String;
-}
-
 export class SubmitFileUseCase {
   constructor(
-    private filesRepository: IFileRepository,
-    private mailAdapter: IMailAdapter,
+    private filesRepository: IFileRepository
   ) {}
 
   async execute(request: SubmitFilesUseCaseRequest) {
@@ -49,32 +42,6 @@ export class SubmitFileUseCase {
       userID,
       emailSend
     })
-
-    const fileNotSendToUser= await this.filesRepository.readWhere({userID, emailSend: false});
-
-    if(!fileNotSendToUser) {
-      
-      return file;
-    }
-
-    const attachments: Attachments[] = fileNotSendToUser.map((file): Attachments => ({
-      id: file.id,
-      filename: file.name,
-      path: file.url,
-    }))
-
-    await this.mailAdapter.sendMail({
-      subject: 'Upload Múltiplo',
-      body: [
-        `<div>`,
-        `<p>Texto aqui</p>`,
-        `<p>Texto aqui</p>`,
-        `</div>`,
-      ].join(''),
-      attachments
-    })
-
-    await this.filesRepository.updateWhere({emailSend: true}, {userID});
 
     return file;
   }

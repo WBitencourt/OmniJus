@@ -1,33 +1,20 @@
 import schedule from 'node-schedule';
+import { FileRepository } from '../repositories/prisma/prisma-file-repository';
+import { NodemailerMailAdapter } from '../adapters/nodemailer/nodemailer-mail-adapter';
+import { SendEmailFileUseCase } from '../use-cases/send-email-files-use-case';
 
 export async function sendEmail() {
-  schedule.scheduleJob(process.env.TIME_SEND_EMAIL as string, () => {
-    console.log("Rodando a 5 minutos")
+  schedule.scheduleJob(process.env.TIME_SEND_EMAIL as string, async () => {
+    console.log("Rodando a cada 5 minutos")
 
-    // const fileNotSendToUser= await this.filesRepository.readWhere({userID, emailSend: false});
+    const fileRepository = new FileRepository();
+    const nodemailerMailAdapter = new NodemailerMailAdapter();
+  
+    const sendEmailFileUseCase = new SendEmailFileUseCase(
+      fileRepository,
+      nodemailerMailAdapter
+    );
 
-    // if(!fileNotSendToUser) {
-      
-    //   return file;
-    // }
-
-    // const attachments: Attachments[] = fileNotSendToUser.map((file): Attachments => ({
-    //   id: file.id,
-    //   filename: file.name,
-    //   path: file.url,
-    // }))
-
-    // await this.mailAdapter.sendMail({
-    //   subject: 'Upload Múltiplo',
-    //   body: [
-    //     `<div>`,
-    //     `<p>Texto aqui</p>`,
-    //     `<p>Texto aqui</p>`,
-    //     `</div>`,
-    //   ].join(''),
-    //   attachments
-    // })
-
-    // await this.filesRepository.updateWhere({emailSend: true}, {userID});
+    sendEmailFileUseCase.execute();
   })
 }

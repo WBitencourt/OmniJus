@@ -1,7 +1,6 @@
 import express from 'express';
 import { FileAdapter } from './adapters/multer/multer-file-adapter';
 import { FileRepository } from './repositories/prisma/prisma-file-repository';
-import { NodemailerMailAdapter } from './adapters/nodemailer/nodemailer-mail-adapter';
 import { SubmitFileUseCase } from './use-cases/submit-files-use-case';
 import { GetFileUseCase } from './use-cases/get-files-use-case';
 import { DeleteFileUseCase } from './use-cases/delete-files-use-case';
@@ -29,17 +28,8 @@ routes.post('/files', fileAdapter.upload(), async (req: Request, res: Response) 
   const {originalname: name, size, key, location: url = ''}  = (req as MulterRequest).file;
 
   const fileRepository = new FileRepository();
-  const nodemailerMailAdapter = new NodemailerMailAdapter();
 
-  const submitFileUseCase = new SubmitFileUseCase(
-    fileRepository,
-    nodemailerMailAdapter
-  );
-
-  console.log({
-    filename: name,
-    path: url
-  })
+  const submitFileUseCase = new SubmitFileUseCase(fileRepository);
 
   const data = await submitFileUseCase.execute({
     name,
