@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { uid } from '../../utils/UniqueID';
 import { fileSize } from '../../utils/FileSize';
 import api from '../../services/api';
+import useAuth from '../../contexts/auth';
 
 interface UploadedFiles {
   file: any,
@@ -28,11 +29,14 @@ export interface ResponseGetFiles {
   userID: number
 }
 
-const userID = 20;
+const userID = 20
 
 export function Upload() {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFiles[]>([]);
   const [pendingFilesUpload, setPendingFilesUpload] = useState<UploadedFiles[]>([]);
+  const {user} = useAuth();
+
+  //const userID = user.id;
 
   useEffect(() => {
     async function GetFiles() {
@@ -136,7 +140,7 @@ export function Upload() {
       { !!uploadedFiles.length && (
         <FileList files={uploadedFiles} onDelete={handleDelete} />
       )}
-      {/* <p style={{color: 'red'}}>{JSON.stringify(uploadedFiles)}</p> */}
+      {/* <p style={{color: 'red'}}>{JSON.stringify(user)}</p> */}
     </Container>
   );
 }

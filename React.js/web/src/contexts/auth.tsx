@@ -15,7 +15,7 @@ interface SignUpData {
 
 interface AuthContextData {
   signed: boolean,
-  user: User | null,
+  user: User,
   loading: boolean,
   signIn: (data: SignInData) => Promise<void>,
   signUp: (data: SignUpData) => Promise<void>,
@@ -25,7 +25,7 @@ interface AuthContextData {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider = ({children}: any) => {
-  const [user, setUser] = useState<User | null>({} as User);
+  const [user, setUser] = useState<User>({} as User);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export const AuthProvider = ({children}: any) => {
   function signOut() {
     localStorage.clear();
 
-    setUser(null);
+    setUser({} as User);
   }
 
   return (
