@@ -19,5 +19,6 @@ app.use('/files', express.static(path.resolve(__dirname, '..' , 'temp', 'uploads
 app.listen(process.env.PORT || 3333, async () => {
   console.log('HTTP server running!');
 
+  //Schedule
   sendEmail();
 })

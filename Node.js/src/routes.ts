@@ -17,6 +17,9 @@ interface MulterRequest extends Request {
 }
 
 routes.get('/files/user/:id', async (req, res) => {
+
+  console.log(req.headers.authorization)
+
   try {
     if(!Number(req.params.id)) {
       throw new Error("Invalid ID")
