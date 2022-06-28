@@ -62,6 +62,7 @@ export function Upload() {
     // }
   }, [])
 
+  //[{}, {}] => [{}, {}]
   function handleUpload(files: any) {
     const File: UploadedFiles[] = files.map((file: any) => ({
       file,
