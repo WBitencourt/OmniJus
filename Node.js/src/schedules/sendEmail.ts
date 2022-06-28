@@ -5,7 +5,7 @@ import { SendEmailFileUseCase } from '../use-cases/send-email-files-use-case';
 
 export async function sendEmail() {
   schedule.scheduleJob(process.env.TIME_SEND_EMAIL as string, async () => {
-    console.log("Rodando a cada 5 minutos")
+    console.log("Rodando a cada 1 minuto")
 
     const fileRepository = new FileRepository();
     const nodemailerMailAdapter = new NodemailerMailAdapter();
