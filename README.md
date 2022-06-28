@@ -11,7 +11,7 @@ Each folder is named with the technical requirements (React.js | Node.js)
 - The user can only upload .pdf files; .png and .jpg/jpeg;
 - It must be validated if the files are corrupted;
 - Files must be saved to some cloud service;
-- The user should receive an email with the files attached.
+- The user should receive an email with the files attached;
 
 ## 🔖 Layout
 
@@ -41,7 +41,6 @@ Each folder is named with the technical requirements (React.js | Node.js)
 - Jest
 - PostgreSQL
 - Migrations
-- SWC
 - Cors
 - Morgan
 - Multer
@@ -117,6 +116,8 @@ Then, fill the values ​​inside the ".env" file at the project root.
 
 ```cl
 DATABASE_URL='postgresql://<username>:<password>@localhost:<your port, i'm using 5433>/<mydb>?schema=<myschema>'
+
+RAILWAY_STATIC_URL=<your server address>
 
 # Keys of IAM user:
 # Access key ID 
